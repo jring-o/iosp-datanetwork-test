@@ -1,0 +1,13 @@
+# Files that run on the node must reach it with LF line endings on every
+# platform. A CRLF copy of a bash script fails on Linux with
+# "$'\r': command not found", and systemd rejects CRLF unit files.
+# Without this file, Windows clones check these out as CRLF and the scp in
+# the runbook ships the broken copy.
+ops/** text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.service text eol=lf
+*.timer text eol=lf
+# Windows batch files are the one place CRLF is required (LF-only .bat
+# files misparse; proven on the laptop build).
+*.bat text eol=crlf
