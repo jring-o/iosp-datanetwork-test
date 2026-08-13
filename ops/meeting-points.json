@@ -1,0 +1,16 @@
+[
+  {
+    "name": "node-00",
+    "cluster": "iosp-nodes",
+    "port": 9096,
+    "kubo_id": "12D3KooWJsbtcPjYbsEd2pDG1JPWAx37qoW3S4rbgyNsVkArDxFX",
+    "cluster_id": "12D3KooWCWJ5fuJNULqxL1tq8YmGcvR6jXwg1RmeXvZXx812NtMN"
+  },
+  {
+    "name": "node-00-observer",
+    "cluster": "iosp-laptops",
+    "port": 9196,
+    "kubo_id": "12D3KooWJZJS2rsP7KRBhiuQUCeqwwcJpWkJmJ2d7LafsxQooVaJ",
+    "cluster_id": "12D3KooWKoD8T7ibSvUHY1FrmUN2aGHAXAUXEWZoeZaKx9BUisjx"
+  }
+]

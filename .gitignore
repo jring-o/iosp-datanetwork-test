@@ -1,0 +1,6 @@
+# Your node's own details — holds your home network address. Never commit this.
+MY-NODE.md
+MY-NODE-*.md
+
+# Anything you stage on your way to archiving it
+/staging/

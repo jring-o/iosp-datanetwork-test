@@ -1,0 +1,7 @@
+[Unit]
+Description=IOSP node network watchdog (one check of the recovery ladder)
+Documentation=file:///usr/local/bin/net_watchdog.sh
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/net_watchdog.sh
