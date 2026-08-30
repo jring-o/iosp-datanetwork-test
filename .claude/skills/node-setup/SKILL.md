@@ -99,8 +99,8 @@ it before continuing. Full rationale in `../README.md`.
    **Warn them about the boot sequence before they plug in:** boot screen → loading → **black
    screen** → a second boot screen → **black again** → Welcome wizard. The Pi restarts itself
    once on first power-up. The black screens are where people pull the plug thinking it died.
-4. Wizard (runbook 10 A). **The page order is:** Welcome → Set Country → Create User → Wi-Fi →
-   Choose Browser → Updates → Finish.
+4. Wizard (runbook 10 A). **The page order is:** Welcome → Set Country → Create User → Wi-Fi
+   (two pages) → Choose Browser → Updates → Finish.
    - *Set Country* has two checkboxes the wizard doesn't explain. **"Use US keyboard" is the
      one that matters**: tick it only if their physical keyboard really is US, because a wrong
      layout means the password they set is not the password they typed, discovered much later.
@@ -108,6 +108,10 @@ it before continuing. Full rationale in `../README.md`.
    - *Create User:* whatever username they want (see "Who you might be helping"). Their
      password, written down on paper. **Record the username in `MY-NODE.md`**; everything
      downstream reads it, and nothing may assume a particular value.
+   - *Wi-Fi* is **two pages, not one**. Page one lists the networks the Pi can see: pick the
+     home network, **Next**. Page two asks for that network's password: type it, **Next**
+     again. Tell them both steps up front, or "enter its password and click Next" sends them
+     hunting for a password box that is not on the first page.
    - *Choose Browser:* either; tick "uninstall the unused browser". One less large package to
      patch over the node's multi-year life.
    - **Updates: expect the check to FAIL the first time.** It has failed on both units ever

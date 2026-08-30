@@ -29,7 +29,7 @@ online tutorials look different; follow this document, not screenshots from the 
 **The pages come in this order** *(confirmed on node-01, 2026-08-12)*. If yours differ, the
 OS has changed and this chapter needs updating:
 
-> Welcome → Set Country → Create User → Wi-Fi → Choose Browser → Updates → Finish
+> Welcome → Set Country → Create User → Wi-Fi (two pages) → Choose Browser → Updates → Finish
 
 1. **Welcome to the Raspberry Pi Desktop.** Press **Next**. (It mentions putting Bluetooth
    keyboards and mice into pairing mode. Ignore that if yours are wired, which is what we
@@ -54,7 +54,10 @@ OS has changed and this chapter needs updating:
    yours goes, and the skills read yours from `MY-NODE.md`. **Record the username in
    `MY-NODE.md` now.** Password: your choice. Write it down at home; it is your fallback
    forever. The wizard asks only for a username; the node gets its proper name in step B.
-4. **Wi-Fi:** join your home network. Next.
+4. **Wi-Fi:** this is two pages, not one. First a list of the networks the Pi can see: pick
+   your home network and press **Next**. Only then does a second page ask for that network's
+   password: type it and press **Next** again. If you look for a password box on the first
+   page you will not find one.
 5. **Choose Browser:** Chromium or Firefox, and a checkbox offering to uninstall the one you
    don't pick.
 
