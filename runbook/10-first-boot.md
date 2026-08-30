@@ -26,7 +26,7 @@ online tutorials look different; follow this document, not screenshots from the 
 
 ## A. The setup wizard (on the Pi, with keyboard and mouse)
 
-**The pages come in this order** *(confirmed on node-01, 2026-08-12)*. If yours differ, the
+**The pages come in this order** *(confirmed on node-01, 2026-08-12, and on node-02 running Pi OS Trixie, 2026-08-30)*. If yours differ, the
 OS has changed and this chapter needs updating:
 
 > Welcome → Set Country → Create User → Wi-Fi (two pages) → Choose Browser → Updates → Finish
@@ -66,6 +66,11 @@ OS has changed and this chapter needs updating:
    it goes headless within the hour and will never open a browser again. Uninstalling the
    spare is worth doing anyway, because it's one less large package to download security
    updates for, every month, for the years this node is expected to run.
+
+   **The tick is not reliable.** On node-02 (Pi OS Trixie, 2026-08-30) it did nothing and
+   Firefox stayed installed. Once you can reach the node from your computer (step 17 of this
+   chapter), check with `dpkg -l firefox 'chromium*' 2>/dev/null | grep ^ii`. One browser
+   listed is right. If both are there, `sudo apt-get purge -y firefox` removes the spare.
 
    Next.
 6. **Updates:** let it check and install.

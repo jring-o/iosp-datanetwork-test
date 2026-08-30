@@ -36,12 +36,18 @@ than assuming any of them.
 - **The secret never appears in the chat.** Not quoted back, not echoed, not in a command you
   print, not in a file you write into their repository clone.
 - **Never put it in a shell command**, which lands in shell history and process listings.
-- **If you are copying it from another node you can reach, pipe it**: read it on one machine
-  and feed it straight into a patch script reading standard input on the other, so it is
-  never rendered. That is how node-01 was joined.
-- **If the human has it on paper or in a password manager, they type it into the file
-  themselves**, in an editor on the node. Talk them through `nano ~/.ipfs-cluster/service.json`
-  and let them paste it. This is one of the few moments where they, not you, do the typing.
+- **Use the shipped helper, `ops/set_secret.sh`.** It reads the secret from standard input,
+  validates it, writes `service.json`, and never echoes it. Copy it to `~/ops/` on the node
+  first (`mkdir -p ~/ops`, then `scp`). Then:
+  - **If you can reach another node that holds it, pipe it** machine to machine:
+    `ssh <other> "python3 -c \"import json;
+    print(json.load(open('/home/<other-username>/.ipfs-cluster/service.json'))['cluster']['secret'])\""
+    | ssh <username>@<address> 'bash ~/ops/set_secret.sh'`. That is how node-01 and node-02
+    were joined.
+  - **If the human has it on paper or in a password manager,** they run
+    `ssh -t <username>@<address> 'bash ~/ops/set_secret.sh'` in their own terminal and paste
+    it at the invisible prompt. This is one of the few moments where they, not you, do the
+    typing. (`nano ~/.ipfs-cluster/service.json` works too; the helper just checks the paste.)
 - A secret that has been in a chat window is compromised for the whole consortium, not just
   their node. Say so if they offer to paste it to you.
 

@@ -117,7 +117,10 @@ it before continuing. Full rationale in `../README.md`.
      again. Tell them both steps up front, or "enter its password and click Next" sends them
      hunting for a password box that is not on the first page.
    - *Choose Browser:* either; tick "uninstall the unused browser". One less large package to
-     patch over the node's multi-year life.
+     patch over the node's multi-year life. **The tick is not reliable** (node-02, Pi OS
+     Trixie: Firefox survived it). Once you have SSH (Phase C), run
+     `dpkg -l firefox 'chromium*' 2>/dev/null | grep ^ii`; if two browsers are listed,
+     `sudo apt-get purge -y <the spare>`.
    - **Updates: expect the check to FAIL the first time.** It has failed on both units ever
      built, for two unrelated reasons: the Pi has no battery clock so signatures look invalid
      before time sync (wait 2 minutes first), **or** the preloaded image is older than the
@@ -225,8 +228,18 @@ days.
     don't have it, stop and have them request it through the contact route in the README's
     "Joining the network" section; you cannot proceed and must not improvise around it.
     **Never let the secret into the chat**, an issue, or a shell command that gets logged.
-    If you are copying it from another node you have access to, pipe it directly into a script
-    that reads standard input, so it is never rendered anywhere.
+    The repository ships the tool for this: `ops/set_secret.sh` reads the secret from standard
+    input, validates it, writes it into `service.json`, and never echoes it. Put it on the node
+    first (`ssh <username>@<address> 'mkdir -p ~/ops'`, then `scp ops/set_secret.sh
+    <username>@<address>:/home/<username>/ops/`). Then one of two routes:
+    - **The human has the secret:** they run `ssh -t <username>@<address> 'bash
+      ~/ops/set_secret.sh'` in their own terminal and paste it at the invisible prompt.
+    - **You can reach a node that already holds it:** pipe, machine to machine, so it is never
+      rendered: `ssh <other-username>@<other-address> "python3 -c \"import json;
+      print(json.load(open('/home/<other-username>/.ipfs-cluster/service.json'))['cluster']['secret'])\""
+      | ssh <username>@<address> 'bash ~/ops/set_secret.sh'`.
+    Both print `Secret set (64 characters). Cluster name is: iosp-nodes` on success. Set the
+    cluster name in the editor first, or the confirmation line will show the wrong name.
 23. Install `ipfs-cluster-service` + `ipfs-cluster-ctl` (v1.1.6 at time of writing; check
     dist.ipfs.tech for newer), then `ipfs-cluster-service init --consensus crdt`.
 24. **A fresh init is already almost right**: `peername` defaults to the hostname,

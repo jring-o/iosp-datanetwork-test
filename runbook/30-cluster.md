@@ -81,13 +81,31 @@ The two values that make this node part of *our* cluster rather than a private o
 | Cluster name | `consensus` → `crdt` → `cluster_name` | `iosp-nodes` |
 | Secret | `cluster` → `secret` | the 64-character string you were given |
 
-Edit the file with any text editor (`nano ~/.ipfs-cluster/service.json`), change those two
-values, and save.
+Set the cluster name with any text editor (`nano ~/.ipfs-cluster/service.json`): find
+`cluster_name` and make it `iosp-nodes`. You can set the secret the same way, but the helper
+below is safer and checks your paste.
+
+**The secret, with the shipped helper.** `ops/set_secret.sh` reads the secret from standard
+input, checks that it is 64 hexadecimal characters, writes it into `service.json`, and locks
+that file to your user. It never echoes the secret and never puts it in a command line. Copy
+it to the node and run it from your computer:
+
+```
+ssh <username>@<address> 'mkdir -p ~/ops'
+scp ops/set_secret.sh <username>@<address>:/home/<username>/ops/
+ssh -t <username>@<address> 'bash ~/ops/set_secret.sh'
+```
+
+It asks you to paste the secret; nothing appears as you type. Press Enter.
+
+**You should see:** `Secret set (64 characters). Cluster name is: iosp-nodes`. Any other
+message means the paste was wrong and nothing was changed; run it again.
 
 **Do not paste the secret into a chat window, an issue, or a terminal command that gets
-logged.** If an agent is helping you, have it edit the file with the secret arriving on
-standard input rather than as visible text. The method used to build node-01 was to pipe it
-straight from one node into a patch script on the other, so it never appeared on screen.
+logged.** If an agent is helping you, it uses the same helper: you type the secret at the
+invisible prompt in your own terminal, or the agent pipes it into the helper from a node that
+already holds it. Either way it never appears as text the agent can see. That is how node-01
+and node-02 were joined.
 
 ### 4. Install the address resolver — this is how your node finds the consortium
 
