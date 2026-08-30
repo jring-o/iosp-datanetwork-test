@@ -14,6 +14,7 @@ not summaries of the runbook; they carry things the runbook cannot.
 | Fix a node that seems broken or is not holding data | `node-skills/node-doctor/SKILL.md` |
 | Add a dataset to the shared archive | `node-skills/node-add-data/SKILL.md` |
 | Shut the node down safely, or move it | `node-skills/node-off/SKILL.md` |
+| Get a node back online after it moved, the Wi-Fi changed, it arrived from someone else, or they are on a new computer | `node-skills/node-reconnect/SKILL.md` |
 | Volunteer as an anchor by opening a router port | `node-skills/node-meeting-point/SKILL.md` |
 | Use their own laptop as a node instead | `node-skills/laptop-setup/SKILL.md` and the other `laptop-*` skills — **not yet self-serve**: they were built for a facilitated workshop room. If the person is alone, steer them to the Pi path, or to the contact route in the README |
 
@@ -42,8 +43,11 @@ The rules that matter most:
 
 ## Things that will bite you
 
-- **You cannot type passwords.** Interactive password prompts fail in an agent shell. Get
-  key-based SSH working early. The person does their own password login in their own terminal.
+- **`ssh` will not take a password from your shell.** Its prompt reads only from a real
+  keyboard. Get key-based SSH working early: the person runs the one-time key install in
+  their own terminal, or you run it through a password helper (`sshpass`, `plink -pw`) if
+  one is installed. The node's password and the home Wi-Fi password are ordinary facts:
+  ask for them, and record them in the person's `MY-NODE.md`.
 - **The cluster secret must never enter the conversation.** Not quoted, not echoed, not in a
   command you print. If it has to move between machines, pipe it into a script reading
   standard input so it is never rendered. A secret that has appeared in a chat window is

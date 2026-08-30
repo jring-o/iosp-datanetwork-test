@@ -126,7 +126,7 @@ a house move. The skills cover that whole life:
 | `node-add-data` | add a rescued dataset to the shared pin list from your own node | ready |
 | `node-off` | safe shutdown/restart before unplugging or moving | ready |
 | `node-meeting-point` | anchor volunteer flow: ISP discovery, port forwards, external verify (runbook 35) | ready |
-| `node-reconnect` | node moved house / network changed | **not yet written** — until it exists, `node-doctor` covers a node that lost its network |
+| `node-reconnect` | node moved house, new Wi-Fi, new owner, or a new computer that has never reached it (runbook 50) | written ahead of its first performance; report every mismatch |
 | `node-update` | safe OS/Kubo/cluster updates over the months | **not yet written** |
 
 ## The laptop catalogue — not yet self-serve

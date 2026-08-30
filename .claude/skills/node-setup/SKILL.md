@@ -66,12 +66,16 @@ it before continuing. Full rationale in `../README.md`.
 
 ## Ground rules (learned the hard way)
 
-- **You cannot type passwords.** Your shell has no interactive keyboard: password SSH
-  prompts fail with `Host key verification failed` / `stdin is not a terminal`. Key-based
-  access is your entry ticket. Set it up early; never work around it.
-- **The human's password never enters the chat.** Interactive logins and the one-time key
-  install happen in the human's own terminal window, not through you. Never echo secrets,
-  never store them in any file you write.
+- **`ssh` will not take a password from you.** OpenSSH's password prompt reads only from a
+  real keyboard, so a password login started from your shell fails (`Host key verification
+  failed` / `stdin is not a terminal`). That is a mechanical limit, not a rule about secrets.
+  Two ways through, both fine: the human runs the one-time key install in their own terminal,
+  or you run it through a helper that feeds the password (`sshpass` on Mac/Linux, PuTTY's
+  `plink -pw` on Windows) if one is installed. After that, key-based access, never a prompt.
+- **Passwords may be said in chat and belong in `MY-NODE.md`.** The node's password and the
+  home Wi-Fi name and password go in the person's node-facts file, so the next computer and
+  the next session can get in without asking. Ask for them plainly and record them. The one
+  thing that never enters the chat is the cluster secret; see `node-join`.
 - **Sequence the human's dignity:** have them do the plain `ssh` password login FIRST (the
   "I'm on my own node" moment), THEN the key install. Don't lead with plumbing.
 - **Errors get captured verbatim** — photo or copy-paste before anyone clicks past. Future
@@ -106,8 +110,8 @@ it before continuing. Full rationale in `../README.md`.
      layout means the password they set is not the password they typed, discovered much later.
      "Use English language" is cosmetic but worth ticking so the menus match the runbook.
    - *Create User:* whatever username they want (see "Who you might be helping"). Their
-     password, written down on paper. **Record the username in `MY-NODE.md`**; everything
-     downstream reads it, and nothing may assume a particular value.
+     password too. **Record the username and the password in `MY-NODE.md`**; everything
+     downstream reads the username, and nothing may assume a particular value.
    - *Wi-Fi* is **two pages, not one**. Page one lists the networks the Pi can see: pick the
      home network, **Next**. Page two asks for that network's password: type it, **Next**
      again. Tell them both steps up front, or "enter its password and click Next" sends them
@@ -160,7 +164,7 @@ they pick: the key lands on it.
    the host key, with no password prompt, means the Pi is still finishing its reboot; the
    network answers before the login service is ready. **Wait a minute and run it again.**
    Nothing is wrong. Don't start diagnosing versions or clients; it resolves itself.
-10. Key install, still the human's terminal (their password's last-ever appearance):
+10. Key install, in the human's terminal (or yours, through a password helper):
     - Windows: `type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh <username>@<address> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"`
     - Mac/Linux: `ssh-copy-id <username>@<address>`
     - No key yet? `ssh-keygen -t ed25519` first, defaults fine.
@@ -260,9 +264,8 @@ nothing from them, including after a power cut.
     It is the thing the network is for, and doing it once while you're there is worth more
     than reading about it later.
 30. Tell them what to run later, so the answer isn't "nothing, good luck": `node-health` for a
-    checkup, `node-doctor` if something seems wrong (including after a move or network change,
-    until a dedicated `node-reconnect` skill exists), `node-add-data` whenever they rescue
-    something.
+    checkup, `node-doctor` if something seems wrong, `node-reconnect` after a move, a new
+    Wi-Fi network or a new computer, `node-add-data` whenever they rescue something.
 31. **Offer to report anything that surprised you both** as an issue on the public repository,
     consent-gated and anonymized, per `../README.md`. Anything the runbook got wrong or didn't
     mention is exactly what the next person needs.

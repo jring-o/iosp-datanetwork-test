@@ -3,8 +3,9 @@
 Numbered chapters, in execution order, from a sealed box to a node holding the archive.
 Read them in order the first time; after that they are reference.
 
-Every step here has been performed on real hardware before it was written down. The timings
-are measured from those builds.
+Every step here has been performed on real hardware before it was written down, with one
+exception: chapter 50 was written ahead of its first performance and says so at the top. The
+timings are measured from real builds.
 
 | Chapter | What it covers | Who needs it |
 |---|---|---|
@@ -15,6 +16,7 @@ are measured from those builds.
 | [`30-cluster.md`](30-cluster.md) | Join the network. Needs the cluster secret | everyone |
 | [`35-meeting-point.md`](35-meeting-point.md) | Volunteering as an anchor: opening a router port so newcomers can dial you | volunteers only |
 | [`40-data.md`](40-data.md) | Add a dataset, and prove another node has it | everyone, eventually |
+| [`50-take-home.md`](50-take-home.md) | The node moved: new Wi-Fi, new owner, or a new computer. Get it back on the network | everyone, when it moves |
 
 Each chapter opens with the state you start in and the state you end in, so you can tell at a
 glance whether you're in the right place.

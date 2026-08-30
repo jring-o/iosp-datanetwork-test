@@ -89,9 +89,8 @@ connection when your Wi-Fi misbehaves. You do not need to leave anything running
 computer.
 
 When you do want it: `node-health` for a checkup, `node-doctor` if something seems wrong,
-`node-add-data` when you have something to rescue. (A `node-reconnect` skill for moving house
-is planned but not yet written; until it exists, `node-doctor` covers a node that lost its
-network.)
+`node-add-data` when you have something to rescue, and `node-reconnect` when the node moves
+house, changes Wi-Fi, or arrives from someone else.
 
 ## Found something wrong?
 

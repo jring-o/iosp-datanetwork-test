@@ -5,9 +5,10 @@ has to guess your username or address, and you will want it yourself in six mont
 have forgotten all of this.
 
 `MY-NODE.md` is gitignored and must stay that way. It holds your node's address on your home
-network. Do not commit it, do not paste it into an issue, do not put it in a chat window you
-did not open. Your password and the cluster secret never go in this file, nowhere in it, not
-even abbreviated.
+network and your node's password, on purpose: your assistant reads them so it can get a new
+computer onto the node, and so can you in six months. Do not commit it and do not paste it
+into an issue. The one thing that never goes in this file is the cluster secret, because it
+belongs to the whole network, not to you.
 
 ## The basics
 
@@ -16,7 +17,7 @@ even abbreviated.
 | Node name (hostname) | |
 | Username | |
 | Address on my home network | |
-| How to re-find it if that changes | run `hostname -I` on the node, take the short item with dots |
+| How to re-find it if that changes | run `hostname -I` on the node, take the short item with dots; after a move, `node-reconnect` |
 | Built on (date) | |
 
 ## Hardware
@@ -56,13 +57,24 @@ finds you after your address moves.
 | Bootstrapped from (which member) | |
 | Am I an anchor? | no, or yes with ports forwarded: |
 
-## Where the things I must not lose are kept
+## Passwords
 
-Write down *where*, never *what*.
+These live here so that a new computer, or a new session, can get onto the node without
+anyone hunting. Say them to your assistant plainly when it asks; it records them here.
 
 | | |
 |---|---|
-| My node's password | e.g. "on paper in the desk drawer" |
+| My node's password | |
+| My home Wi-Fi network name | |
+| My home Wi-Fi password | |
+
+## Where the cluster secret is kept
+
+Write down *where*, never *what*. The secret is shared by every member, so it stays in your
+password manager and is never written into this file or a chat window.
+
+| | |
+|---|---|
 | The cluster secret | e.g. "password manager, entry name X" |
 
 ## Notes

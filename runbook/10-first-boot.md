@@ -52,8 +52,9 @@ OS has changed and this chapter needs updating:
    node, so short and easy is good. The consortium's own reference nodes use `iosp`, but that
    is a convention, not a requirement: every command in this guide writes `<username>` where
    yours goes, and the skills read yours from `MY-NODE.md`. **Record the username in
-   `MY-NODE.md` now.** Password: your choice. Write it down at home; it is your fallback
-   forever. The wizard asks only for a username; the node gets its proper name in step B.
+   `MY-NODE.md` now, and the password with it.** The password is your fallback forever and
+   the thing any new computer needs to get in. The wizard asks only for a username; the
+   node gets its proper name in step B.
 4. **Wi-Fi:** this is two pages, not one. First a list of the networks the Pi can see: pick
    your home network and press **Next**. Only then does a second page ask for that network's
    password: type it and press **Next** again. If you look for a password box on the first
@@ -189,8 +190,8 @@ street address reaches a house. You are about to read it off the Pi and record i
       ssh-copy-id <username>@<address>
       ```
 
-    Password one final time. (No key yet? Make one first: `ssh-keygen -t ed25519`, accept
-    the defaults.)
+    Type the password once more. (No key yet? Make one first: `ssh-keygen -t ed25519`,
+    accept the defaults.)
 17. Verify the key works; this must log you in with **no password prompt**:
 
     ```

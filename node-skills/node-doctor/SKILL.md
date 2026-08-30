@@ -100,7 +100,7 @@ deciding the next:
 8. Profile exists but inactive: `nmcli connection up "<profile name>"`.
    - "network could not be found" → step 9.
    - Profile GONE: `sudo nmcli device wifi connect "<network>" password "<wifi password>"`
-     (the human types their own Wi-Fi password directly at the machine — never into chat).
+     (the Wi-Fi name and password are in `MY-NODE.md`; if not, ask, and record them there).
 9. `nmcli device wifi list` — **an empty scan in a residential area means the radio
    itself is dead**, not the router. Confirm nothing blocks it: `rfkill list` (all
    should say "no").
