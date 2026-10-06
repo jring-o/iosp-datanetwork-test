@@ -82,7 +82,10 @@ everyone else) and roughly how long you'll be working while they wait.
    (`/ip4/<local address>/tcp/9096/p2p/<their cluster peer ID>`); see the note below.
    **At a workshop, every node joins this way:** ask whether they are at one, and if so for
    the room line on the workshop page or slide (it starts `/ip4/`; it is not secret). Check
-   its form and append it to the peerstore before step 6. With a room line, a failed lookup
+   its form (`/ip4/`, a private address, `/tcp/`, a port, `/p2p/`, and a 52-character peer ID
+   starting `12D3KooW`) and append it to the peerstore before step 6. If there is no room
+   line yet because theirs is the room's first node, carry on: it joins through the
+   meeting point. With a room line, a failed lookup
    in step 4 is fine: carry on. *(Written 2026-10-06, ahead of its first performance.)*
 6. **Install and enable the cluster service** (`User=<their username>`,
    `IPFS_CLUSTER_PATH=/home/<their username>/.ipfs-cluster`, `After=ipfs.service`).

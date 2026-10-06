@@ -269,9 +269,11 @@ days.
     ```
 
     It is not secret: an address inside the room and the peer ID of a node there that is
-    already a member. Check that it has the form
-    `/ip4/<private address>/tcp/<port>/p2p/12D3KooW…`, then append it to
-    `~/.ipfs-cluster/peerstore` (runbook 30 step 5). With a room line, a failed meeting-point
+    already a member. Check its form: `/ip4/`, a private address (10.x, 172.16–31.x or
+    192.168.x), `/tcp/`, a port, `/p2p/`, and a peer ID of 52 characters starting
+    `12D3KooW`. Then append it to `~/.ipfs-cluster/peerstore` (runbook 30 step 5).
+    If they aren't at a workshop, or there is no room line yet because theirs is the
+    room's first node, carry on without one: the node joins through the meeting point. With a room line, a failed meeting-point
     lookup in step 25 is fine: carry on. The node joins through the room's Wi-Fi and needs
     nothing from the venue's internet. *(Written 2026-10-06, ahead of its first
     performance.)*
