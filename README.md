@@ -102,7 +102,7 @@ photo carries the whole screen. Typing out the message you saw is more useful an
 
 ## Provenance
 
-Built and tested at the [IOSP 2026](https://iosp.io) workshop in Leiden, funded by the IPFS
+Built for the [IOSP 2026](https://iosp.science) workshop in Leiden, funded by the IPFS
 Implementations Fund. Every step here was performed on real hardware before it was written
 down, and the measured timings come from those builds.
 
