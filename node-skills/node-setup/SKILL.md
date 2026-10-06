@@ -294,6 +294,31 @@ days.
     are only waiting. Only after 15 minutes is it worth investigating.
 28. Record in `MY-NODE.md`: cluster name, cluster peer ID, join date, which anchor they
     bootstrapped from.
+28a. **If they said this is the room's first node at a workshop**, do two more things before
+    handing over, because everyone else in the room will join through this node over the
+    room's Wi-Fi. Say that in one sentence first. *(Written 2026-10-06, ahead of its first
+    performance.)*
+    - **Fix its address on the room's router.** One message:
+
+      ```
+      In a browser on the room's Wi-Fi, open the router's admin page and find the setting
+      for reserving an address (on a GL.iNet travel router: http://192.168.8.1, then
+      NETWORK → LAN → Address Reservation). Reserve <current address> for <node name>.
+
+      You should see: <node name> listed with <current address>.
+      ```
+
+      Fill in the node's name and its current address (`hostname -I`, first item). On any
+      other router, don't guess the labels; ask what they see.
+    - **Print its room line**, over SSH:
+
+      ```
+      echo "/ip4/$(hostname -I | cut -d' ' -f1)/tcp/9096/p2p/$(ipfs-cluster-ctl id | head -1 | cut -d' ' -f1)"
+      ```
+
+      Show them the line, which starts `/ip4/` and ends in a peer ID starting `12D3KooW`, and
+      ask them to save it and give it to whoever puts it on the workshop page or slide. It is
+      not secret. Every other node in the room pastes it when you ask for the room line.
 
 **Now the build is done.** Tell them in plain language: their node holds the consortium's
 archive, it will keep pulling new material by itself, it fixes its own network, and it needs

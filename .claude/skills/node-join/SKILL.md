@@ -100,6 +100,10 @@ everyone else) and roughly how long you'll be working while they wait.
    automatic.
 10. **Record in the node-facts file:** cluster peer ID, which cluster, the date joined, and
     which anchor they bootstrapped from.
+11. **If they said this is the room's first node at a workshop:** walk them through fixing
+    its address on the room's router and print its room line, exactly as `node-setup` step
+    28a describes. Every other node in the room joins through it. *(Written 2026-10-06,
+    ahead of its first performance.)*
 
 ## The two failures that account for nearly everything
 

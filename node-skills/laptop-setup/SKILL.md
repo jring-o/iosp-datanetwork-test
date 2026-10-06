@@ -151,6 +151,16 @@ Verify all three: `ipfs.exe --version`, `ipfs-cluster-service.exe --version`,
    `UNPINNED` for everything, on every peer. That is the fresh membership still syncing,
    not data loss — wait a minute, re-run, watch it turn `PINNED`. *(Observed on the first
    laptop join and again after restarts; always self-repaired.)*
+5. **If they said this is the room's first laptop at a workshop**, everyone else's laptop
+   will join through this one, so once its rows show `PINNED`, walk them through, one
+   message at a time: setting the room's Wi-Fi to **Private** (Settings → Network & internet
+   → Wi-Fi → the room's network → Network profile type → Private); allowing `ipfs.exe` and
+   `ipfs-cluster-service.exe` on private networks (Windows Security → Firewall & network
+   protection → Allow an app through firewall); reserving the laptop's current address on
+   the room's router (on a GL.iNet travel router: http://192.168.8.1 → NETWORK → LAN →
+   Address Reservation); then print its room line with the commands in Phase D step 5 and
+   ask them to give it to whoever puts it on the workshop page. *(Written 2026-10-06, ahead
+   of its first performance.)*
 
 ## Phase F — the two helper scripts (agent)
 
