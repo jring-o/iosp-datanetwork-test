@@ -11,8 +11,10 @@ description: >-
 > **Status: Windows only.** Performed end-to-end on **Windows 11** (2026-07-30, ~4 minutes
 > on good bandwidth). On 2026-10-05 the facilitator hand-over was removed: the person now
 > chooses the laptop's name, enters the secret at a hidden prompt (`ops/set_secret.ps1`), and
-> you look up the meeting point yourself. That rewrite has not yet been performed on a
-> laptop joining for the first time, so treat every mismatch as a defect to report. macOS
+> you look up the meeting point yourself. On 2026-10-06 a workshop's laptops gained a room
+> line, so they join through a laptop already in the room (Phase D step 5). Neither change
+> has yet been performed on a laptop joining for the first time, so treat every mismatch as
+> a defect to report. macOS
 > and Linux have **not been performed at all**: if the person is on one of those, say so
 > plainly and steer them to the Pi path (`node-setup`).
 
@@ -102,13 +104,41 @@ Verify all three: `ipfs.exe --version`, `ipfs-cluster-service.exe --version`,
    sits on the same local network as the anchor itself, also write the private address the
    lookup returns, because most routers refuse to loop a connection out to their own public
    address and back in.
+5. **At a workshop: the room line (human, then agent).** Ask:
+
+   ```
+   Are you at a workshop? If so, the workshop page or slide shows a room line for laptops,
+   starting /ip4/. Copy it and paste it here.
+
+   You should see: nothing changes on your screen; I'll add it to your laptop's node.
+   ```
+
+   It is not secret: an address inside the room and the peer ID of a laptop there that is
+   already a member. Check that it has the form
+   `/ip4/<private address>/tcp/<port>/p2p/12D3KooW…`, then add it as one more line in the
+   peerstore file from step 4. With a room line, a failed lookup in step 4 is fine: carry
+   on. The laptop joins through the room's Wi-Fi and needs nothing from the venue's
+   internet. *(Written 2026-10-06, ahead of its first performance.)*
+
+   Whoever runs the workshop makes the line on the room's first laptop, once it has joined
+   and its `status` rows show `PINNED`, as runbook 30 step 5 describes:
+
+   ```powershell
+   $ip = (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Wi-Fi).IPAddress
+   $id = ((ipfs-cluster-ctl.exe id) | Select-Object -First 1).Split(' ')[0]
+   "/ip4/$ip/tcp/9096/p2p/$id"
+   ```
+
+   That first laptop must accept connections from the others: the room's Wi-Fi set to
+   **Private**, and `ipfs.exe` and `ipfs-cluster-service.exe` allowed on private networks.
 
 ## Phase E — join + verify (agent)
 
 1. Start the cluster peer: `ipfs-cluster-service.exe daemon` (hidden/minimized, as above).
 2. Within ~15s, `ipfs-cluster-ctl.exe peers ls` shows this laptop's peername AND the other
    members, each "Sees N other peers". Seeing only itself means the secret or the cluster
-   name is wrong; the two failures look identical, so re-check both.
+   name is wrong; the two failures look identical, so re-check both. At a workshop, also
+   check that the room line went in before the cluster peer started; if not, restart it.
 3. **Check the name is theirs alone.** If another member in `peers ls` already uses the same
    name, ask the human for another, set it as in Phase D step 2, and restart the cluster
    peer. Names are only labels (membership goes by peer ID), so a rename after joining is

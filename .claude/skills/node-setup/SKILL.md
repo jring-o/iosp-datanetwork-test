@@ -259,10 +259,27 @@ days.
     unit. **If another member is on their own network, add its LOCAL address to the peerstore
     by hand**: most home routers refuse to loop a connection out to their own public address
     and back, so between neighbours the local address is the only one that works.
+    **At a workshop, every node joins this way.** Before starting the cluster's unit, ask:
+
+    ```
+    Are you at a workshop? If so, the workshop page or slide shows a room line starting
+    /ip4/. Copy it and paste it here.
+
+    You should see: nothing changes on your screen; I'll add it to your node.
+    ```
+
+    It is not secret: an address inside the room and the peer ID of a node there that is
+    already a member. Check that it has the form
+    `/ip4/<private address>/tcp/<port>/p2p/12D3KooW…`, then append it to
+    `~/.ipfs-cluster/peerstore` (runbook 30 step 5). With a room line, a failed meeting-point
+    lookup in step 25 is fine: carry on. The node joins through the room's Wi-Fi and needs
+    nothing from the venue's internet. *(Written 2026-10-06, ahead of its first
+    performance.)*
 26. Gate 3: `ipfs-cluster-ctl peers ls` shows them **and at least one other member**, both
     reporting they see each other. If they see only themselves, the secret or the cluster name
     is wrong, **and those two failures look identical**, because either one silently forms a
-    private cluster of one. Re-check both; don't guess which.
+    private cluster of one. Re-check both; don't guess which. At a workshop, also check that
+    the room line went in before the cluster started; if not, restart the cluster.
     **Then check the name is theirs alone.** If another member in `peers ls` already uses
     the same name, ask them for another and rename per runbook 30 step 7. Names are only
     labels (membership goes by peer ID), so a rename after joining is harmless.

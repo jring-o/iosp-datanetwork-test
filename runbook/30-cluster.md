@@ -128,6 +128,8 @@ ssh <username>@<address> 'python3 ~/ops/resolve_meeting_points.py'
 `peerstore written: N entries`. If it says `lookup failed; keeping cached entries`, that is
 safe (your existing entries are untouched and it will try again next boot), but on a first
 join there are no cached entries yet, so wait a minute and run it again before continuing.
+**At a workshop with a room line (step 5), carry on instead:** the room line is enough to
+join, and the lookup will succeed by itself once the node is somewhere with open internet.
 
 Then install it as a boot-ordered service, so it runs before the cluster every time.
 **Replace `<username>` in both places:**
@@ -151,7 +153,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable iosp-resolve-mp.service
 ```
 
-### 5. If another consortium node is on your own network
+### 5. If another consortium node is on your own network, or you are at a workshop
 
 A second node in your house, or a room full of them at a workshop, is a special case: most
 home routers will not let you reach your own public address from inside the network, so
@@ -165,6 +167,43 @@ echo "/ip4/<neighbour's local address>/tcp/9096/p2p/<neighbour's cluster peer ID
 The resolver preserves local addresses for exactly this reason; don't delete them by hand.
 (The same line, with a public address, also works as a manual bootstrap if a member ever
 hands you their address directly; the resolver is the normal path, not the only one.)
+
+**At a workshop, this is how every node joins.** Whoever runs the workshop gives you a
+**room line**: one line in the form above, pointing at a node in the room that is already a
+member. Add it exactly as above, before you start the cluster in step 6:
+
+```
+echo "<the room line>" >> ~/.ipfs-cluster/peerstore
+```
+
+Your node then joins through the room's own Wi-Fi. It gets the shared list and the archive
+from the nodes around it, so it needs nothing from the venue's internet, and nobody in the
+room depends on reaching an anchor. Whatever the room adds reaches the rest of the network as
+soon as any node in the room can reach it, at the latest when the nodes go home. Leave the
+line in place afterwards; at home it simply fails and the anchors take over. *(Written
+2026-10-06, ahead of its first performance.)*
+
+**If you run the workshop: making the room line.** Do this once, before anyone else joins.
+1. Join one node in the room the normal way, through an anchor. If the venue's internet
+   blocks the cluster ports, give the room's router another internet for these few minutes,
+   such as a phone.
+2. In the room's router, give that node a fixed address (most routers call this *address
+   reservation*), so the room line stays true all session.
+3. Wait until `ipfs-cluster-ctl peers ls` on it lists an anchor and `ipfs-cluster-ctl status`
+   shows its rows `PINNED`. It now holds the shared list and the archive.
+4. Print its room line on it:
+
+   ```
+   echo "/ip4/$(hostname -I | cut -d' ' -f1)/tcp/9096/p2p/$(ipfs-cluster-ctl id | head -1 | cut -d' ' -f1)"
+   ```
+
+   and show it to the room (a slide or the workshop page). It holds an address inside the
+   room and a peer ID, nothing secret. The router can then go back to the venue's internet.
+
+The laptop network works the same way, with a laptop as the room's first node and the line
+made in PowerShell. That laptop must accept connections from the others: set the room's
+Wi-Fi to **Private** in Windows' network settings, and allow `ipfs.exe` and
+`ipfs-cluster-service.exe` on private networks under **Allow an app through firewall**.
 
 ### 6. Run the cluster as a service
 
@@ -211,7 +250,9 @@ node-01's join this read:
 
 If you only see yourself, the secret or the cluster name is wrong. Those two failures look
 identical from here, because a peer with either one wrong simply forms a different cluster of
-one. Re-check both, then restart with `sudo systemctl restart ipfs-cluster`.
+one. Re-check both, then restart with `sudo systemctl restart ipfs-cluster`. At a workshop,
+also check that the room line went in before the cluster started; if it went in after,
+restart the cluster.
 
 **Check that your name is yours alone.** If another line shows the same name as yours, choose
 another and rename. Names are only labels, since membership goes by peer ID, so this is
