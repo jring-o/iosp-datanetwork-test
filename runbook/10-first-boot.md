@@ -111,8 +111,10 @@ OS has changed and this chapter needs updating:
 9. **System** section → **Hostname**. This is four interactions, not one:
 
    - Click the **Change hostname** button. A popup opens asking you to enter a hostname.
-   - Type your node's name (e.g. `node-07`). Any short name works; **record it in
-     `MY-NODE.md`**.
+   - Type your node's name (e.g. `node-07`). You choose it: letters, digits and dashes,
+     starting with a letter. Every member of the network sees it, and so does the network's
+     public status page, so pick one that doesn't identify you. If another member already
+     uses it, chapter 30 step 7 shows you how to change it. **Record it in `MY-NODE.md`**.
    - Click **OK**.
    - A second popup says *"The hostname has been changed successfully and will take effect on
      the next reboot."* Click **OK**.

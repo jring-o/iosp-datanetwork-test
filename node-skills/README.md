@@ -132,13 +132,14 @@ a house move. The skills cover that whole life:
 ## The laptop catalogue — not yet self-serve
 
 The consortium runs a second, parallel network of members' own laptops. These skills were
-built for the facilitated workshop room and still assume a facilitator is present; the
-self-serve rewrite has not happened yet. If you are on your own, build the Pi path above, or
-write to the contact route in the README.
+built for the facilitated workshop room. `laptop-setup` no longer needs a facilitator: like the
+Pi path, it needs only the network's cluster secret, and it runs on Windows only. The other
+laptop skills have not been reworked yet. If you are on your own and not on Windows, build the
+Pi path above, or write to the contact route in the README.
 
 | Skill | Covers | Status |
 |---|---|---|
-| `laptop-setup` | own laptop → cluster member (install, join, verify) | workshop-room only; Windows performed, macOS/Linux unwritten |
+| `laptop-setup` | own laptop → cluster member (install, join, verify) | Windows only: performed 2026-07-30; secret prompt, own naming and meeting-point lookup rewritten 2026-10-05 ahead of performance. macOS/Linux unwritten |
 | `laptop-node` | daily start / check / stop | workshop-room only |
 | `laptop-add-data` | add a rescued dataset from the laptop | workshop-room only |
 | `laptop-reconnect` | laptop on a different network (travel, campus) | **not yet written** |

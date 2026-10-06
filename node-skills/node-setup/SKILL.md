@@ -25,9 +25,10 @@ the person's node appears in `peers ls` alongside other members and their pins a
 
 Two different people arrive at this skill, and the difference matters:
 
-- **A workshop participant**, whose node was set up in the room with facilitators present.
-  They will rarely run this; what they run at home is reconnection and diagnosis. If one does
-  run it, their node name and cluster secret were assigned to them.
+- **A workshop participant**, building their node in the room with facilitators present.
+  They choose their node's name themselves, exactly as anyone else does, and copy the cluster
+  secret from the workshop dashboard. What they run afterwards, at home, is reconnection and
+  diagnosis.
 - **Someone building their own node later**, alone, with nobody to ask. **Write and behave
   for this person.** They choose their own username; nothing may assume otherwise. Never say
   "ask a facilitator" or "this was done for you at the workshop". Anything they must request
@@ -137,6 +138,10 @@ it before continuing. Full rationale in `../README.md`.
      **The row still reads "Change hostname" afterwards**; Control Centre never displays the
      current hostname. Tell them that, or a working step looks broken. Record the node name
      in `MY-NODE.md`.
+   - **They choose the name.** Every member sees it, and so does the network's public status
+     page, so suggest a short name that doesn't identify them: letters, digits and dashes,
+     starting with a letter. Whether another member already uses it is checked once the node
+     has joined (Gate 3).
    - Interfaces → SSH → **ON**. Then **Close** (there is no OK/Apply) → reboot when asked.
 
 ## Phase B — find the node (you)
@@ -224,9 +229,10 @@ days.
 
 ## Phase G — join the cluster (you, runbook 30); the build is not done until this passes
 
-22. **The cluster secret comes to the person directly, outside this repository.** If they
-    don't have it, stop and have them request it through the contact route in the README's
-    "Joining the network" section; you cannot proceed and must not improvise around it.
+22. **The cluster secret comes to the person directly, outside this repository.** At a
+    workshop they copy it from the workshop dashboard. Otherwise, if they don't have it, stop
+    and have them request it through the contact route in the README's "Joining the network"
+    section; you cannot proceed and must not improvise around it.
     **Never let the secret into the chat**, an issue, or a shell command that gets logged.
     The repository ships the tool for this: `ops/set_secret.sh` reads the secret from standard
     input, validates it, writes it into `service.json`, and never echoes it. Put it on the node
@@ -257,6 +263,9 @@ days.
     reporting they see each other. If they see only themselves, the secret or the cluster name
     is wrong, **and those two failures look identical**, because either one silently forms a
     private cluster of one. Re-check both; don't guess which.
+    **Then check the name is theirs alone.** If another member in `peers ls` already uses
+    the same name, ask them for another and rename per runbook 30 step 7. Names are only
+    labels (membership goes by peer ID), so a rename after joining is harmless.
 27. Gate 4: `ipfs-cluster-ctl status` shows their rows turning `PINNED` as the archive
     arrives. **Expect noise and do not act on it.** A freshly started peer reports `UNPINNED`
     or missing rows for a minute; separately, a single dataset can sit at

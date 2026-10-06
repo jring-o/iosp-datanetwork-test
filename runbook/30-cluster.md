@@ -213,6 +213,21 @@ If you only see yourself, the secret or the cluster name is wrong. Those two fai
 identical from here, because a peer with either one wrong simply forms a different cluster of
 one. Re-check both, then restart with `sudo systemctl restart ipfs-cluster`.
 
+**Check that your name is yours alone.** If another line shows the same name as yours, choose
+another and rename. Names are only labels, since membership goes by peer ID, so this is
+harmless. *(Written 2026-10-05, ahead of its first performance.)* With your new name in place
+of `<new-name>`:
+
+```
+sudo raspi-config nonint do_hostname <new-name>
+python3 -c 'import json,os; p=os.path.expanduser("~/.ipfs-cluster/service.json"); d=json.load(open(p)); d["cluster"]["peername"]="<new-name>"; json.dump(d,open(p,"w"),indent=2)'
+sudo systemctl restart ipfs-cluster
+```
+
+The first line renames the machine, which takes full effect at the next reboot; the second
+renames it within the cluster. Run `ipfs-cluster-ctl peers ls` again after 20 seconds and
+expect your new name. Update `MY-NODE.md`.
+
 ### 8. Watch the archive arrive
 
 ```

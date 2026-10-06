@@ -8,15 +8,19 @@ description: >-
 
 # laptop-setup — your laptop becomes a cluster node
 
-> **Status: workshop-room only.** This skill was built for a facilitated workshop and still
-> assumes a facilitator hands over the cluster details in person. The self-serve rewrite has
-> not happened yet. If the person is alone with no facilitator, steer them to the Pi path
-> (`node-setup`) or to the contact route in the README.
+> **Status: Windows only.** Performed end-to-end on **Windows 11** (2026-07-30, ~4 minutes
+> on good bandwidth). On 2026-10-05 the facilitator hand-over was removed: the person now
+> chooses the laptop's name, enters the secret at a hidden prompt (`ops/set_secret.ps1`), and
+> you look up the meeting point yourself. That rewrite has not yet been performed on a
+> laptop joining for the first time, so treat every mismatch as a defect to report. macOS
+> and Linux have **not been performed at all**: if the person is on one of those, say so
+> plainly and steer them to the Pi path (`node-setup`).
 
-Everything runs on the participant's own machine — no SSH, no extra hardware. Performed
-end-to-end on **Windows 11** (2026-07-30, ~4 minutes on good bandwidth). macOS and Linux
-follow the same shape but their legs have **not been performed yet** — if you're on those,
-expect to adapt paths and tell the facilitators what you hit.
+Everything runs on the participant's own machine, with no SSH and no extra hardware. The
+one thing the person needs from outside is the laptop network's **cluster secret**. At a
+workshop it comes from the workshop dashboard; on their own, they request it through the
+contact route in the README's "Joining the network" section. Talk to the person by the
+interaction contract in `../README.md`: one action per message, then what they should see.
 
 ## Phase A — preflight (agent)
 
@@ -31,9 +35,10 @@ expect to adapt paths and tell the facilitators what you hit.
 From https://dist.ipfs.tech, download for your OS/architecture (Windows: `windows-amd64`
 zips) into a self-contained folder, `%USERPROFILE%\iosp-laptop-node\bin\`:
 
-- **kubo** — use the version your cluster's other nodes run (ask the facilitator; this
-  guide was performed with v0.42.0)
-- **ipfs-cluster-service** and **ipfs-cluster-ctl** — likewise (performed with v1.1.6)
+- **kubo** v0.42.0
+- **ipfs-cluster-service** and **ipfs-cluster-ctl** v1.1.6
+
+These are the versions the network's other members run. Use them, not the newest release.
 
 Verify all three: `ipfs.exe --version`, `ipfs-cluster-service.exe --version`,
 `ipfs-cluster-ctl.exe --version`.
@@ -52,25 +57,63 @@ Verify all three: `ipfs.exe --version`, `ipfs-cluster-service.exe --version`,
 
 ## Phase D — cluster membership (human + agent; the secret rule)
 
-1. Agent: `ipfs-cluster-service.exe init --consensus crdt`.
-2. The facilitator gives the human three things **person-to-person**: the cluster's
-   **name**, its **secret**, and this laptop's assigned **peername** (`laptop-NN`).
-3. **The secret must never pass through the agent chat** — everything an agent sees is
-   transcript forever. The human pastes it directly into
-   `%USERPROFILE%\.ipfs-cluster\service.json` themselves (Notepad: the `"secret"` field
-   under `"cluster"`), or hands the agent a facilitator-prepared file to place. The agent
-   may set the non-secret fields: `cluster.peername`, `consensus.crdt.cluster_name`,
-   `consensus.crdt.trusted_peers` (as the facilitator specifies).
-4. Agent: write the meeting-point line the facilitator provides (format
-   `/ip4/<ip>/tcp/<port>/p2p/<cluster-peer-id>`) into
-   `%USERPROFILE%\.ipfs-cluster\peerstore` (one line, plain text file, no extension).
+1. **The human chooses the laptop's name.** Every member sees it, and so does the network's
+   public status page, so suggest a short name that doesn't identify them, such as
+   `laptop-tulip`. Letters, digits and dashes, starting with a letter. Do not let it default:
+   a fresh init names the peer after the computer, which is often the owner's name.
+2. Agent: `ipfs-cluster-service.exe init --consensus crdt`, then set the two non-secret
+   values in `%USERPROFILE%\.ipfs-cluster\service.json`: `cluster.peername` to their chosen
+   name and `consensus.crdt.cluster_name` to `iosp-laptops`. A fresh init already sets
+   `trusted_peers` to `["*"]`; leave it. Change only those two values, and save the file as
+   UTF-8 **without** a byte-order mark (PowerShell 5.1's `Set-Content -Encoding UTF8` adds
+   one, and the cluster program then refuses the file):
+
+   ```powershell
+   $cfg = "$env:USERPROFILE\.ipfs-cluster\service.json"
+   $t = [IO.File]::ReadAllText($cfg)
+   $t = $t -replace '("peername"\s*:\s*")[^"]*(")', ('${1}' + '<chosen-name>' + '${2}')
+   $t = $t -replace '("cluster_name"\s*:\s*")[^"]*(")', ('${1}' + 'iosp-laptops' + '${2}')
+   [IO.File]::WriteAllText($cfg, $t, (New-Object Text.UTF8Encoding($false)))
+   ```
+
+3. **The secret: the human's step, never the chat.** Everything an agent sees is transcript
+   forever, so the secret must never pass through it. Ask them to open a **second**
+   PowerShell window and run, with the kit folder's real path:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File "<kit folder>\ops\set_secret.ps1"
+   ```
+
+   You should see: a prompt asking them to paste the cluster secret. When they paste it, a
+   `*` appears for each character instead of the secret. After Enter:
+   `Secret set (64 characters). Cluster name is: iosp-laptops`. If the cluster name shown is
+   anything else, step 2 did not take; redo it, then run the script again. A message that
+   it does not look like a cluster secret means a partial copy; nothing changed, so they
+   copy it again and rerun.
+4. **The meeting point (agent).** The laptop network's anchor is the `iosp-laptops` entry in
+   `ops/meeting-points.json`. With the Kubo daemon from Phase C running, look up its current
+   address: `ipfs.exe routing findpeer <its kubo_id>`. From the output, take each public IPv4
+   address (`/ip4/a.b.c.d/...`, skipping 10.x, 127.x, 169.254.x, 172.16-31.x and 192.168.x),
+   and write one line per address into `%USERPROFILE%\.ipfs-cluster\peerstore` (plain text,
+   no extension, ASCII):
+   `/ip4/<address>/tcp/<its port>/p2p/<its cluster_id>`. This is what
+   `ops/resolve_meeting_points.py` does on a Pi. If the lookup returns nothing, the fresh
+   daemon is still finding its way into the network; wait a minute and retry. If the laptop
+   sits on the same local network as the anchor itself, also write the private address the
+   lookup returns, because most routers refuse to loop a connection out to their own public
+   address and back in.
 
 ## Phase E — join + verify (agent)
 
 1. Start the cluster peer: `ipfs-cluster-service.exe daemon` (hidden/minimized, as above).
 2. Within ~15s, `ipfs-cluster-ctl.exe peers ls` shows this laptop's peername AND the other
-   members, each "Sees N other peers".
-3. **Expect a false alarm**: for the first minute, `ipfs-cluster-ctl.exe status` may show
+   members, each "Sees N other peers". Seeing only itself means the secret or the cluster
+   name is wrong; the two failures look identical, so re-check both.
+3. **Check the name is theirs alone.** If another member in `peers ls` already uses the same
+   name, ask the human for another, set it as in Phase D step 2, and restart the cluster
+   peer. Names are only labels (membership goes by peer ID), so a rename after joining is
+   harmless.
+4. **Expect a false alarm**: for the first minute, `ipfs-cluster-ctl.exe status` may show
    `UNPINNED` for everything, on every peer. That is the fresh membership still syncing,
    not data loss — wait a minute, re-run, watch it turn `PINNED`. *(Observed on the first
    laptop join and again after restarts; always self-repaired.)*
@@ -89,3 +132,6 @@ for waits — `timeout` refuses to run from an agent shell. *(Both defects hit f
 "Your laptop is now a member: it holds a copy of everything the cluster archives, and
 anything you rescue is replicated to every other member. After any reboot, double-click
 start-node.bat to rejoin — the cluster catches you up on whatever you missed."
+
+Then tell them the node's name once more, plainly. A workshop dashboard asks for it when they
+claim their node.
