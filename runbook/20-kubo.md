@@ -13,19 +13,21 @@ in `MY-NODE.md`; substitute them wherever you see the angle brackets.
 
 ## Steps
 
-1. Find the newest stable version (skip any `-rc` test versions):
+1. Use Kubo `v0.42.0`, the version this guide was performed with and the network's members
+   run. Kubo's releases are on GitHub; to see the newest, run
 
    ```
-   curl -s https://dist.ipfs.tech/kubo/versions | grep -v "\-rc" | tail -1
+   curl -sI https://github.com/ipfs/kubo/releases/latest | grep -i ^location
    ```
 
-   This guide was performed with `v0.42.0`; substitute the version you got.
+   which ends in the newest version's tag. *(Until 6 October 2026 this step used
+   dist.ipfs.tech, which stopped answering that day; GitHub carries the same files.)*
 
 2. Download and install:
 
    ```
    cd /tmp
-   wget -q https://dist.ipfs.tech/kubo/v0.42.0/kubo_v0.42.0_linux-arm64.tar.gz
+   wget -q https://github.com/ipfs/kubo/releases/download/v0.42.0/kubo_v0.42.0_linux-arm64.tar.gz
    tar xzf kubo_v0.42.0_linux-arm64.tar.gz
    sudo bash kubo/install.sh
    ipfs --version

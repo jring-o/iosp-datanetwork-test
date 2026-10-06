@@ -42,7 +42,7 @@ Two programs: the service that runs constantly, and the control tool you type co
 ```
 cd /tmp
 for t in ipfs-cluster-service ipfs-cluster-ctl; do
-  wget -q https://dist.ipfs.tech/$t/v1.1.6/${t}_v1.1.6_linux-arm64.tar.gz
+  wget -q https://github.com/ipfs-cluster/ipfs-cluster/releases/download/v1.1.6/${t}_v1.1.6_linux-arm64.tar.gz
   tar xzf ${t}_v1.1.6_linux-arm64.tar.gz
   sudo mv $t/$t /usr/local/bin/
 done
@@ -51,8 +51,9 @@ ipfs-cluster-ctl --version
 ```
 
 Expect both to print `version 1.1.6`. *(Check
-`https://dist.ipfs.tech/ipfs-cluster-service/versions` for a newer stable release and
-substitute it; v1.1.6 was still current on 2026-08-12.)*
+`https://github.com/ipfs-cluster/ipfs-cluster/releases` for a newer stable release and
+substitute it; v1.1.6 was still current on 2026-10-06. Until that day these files came from
+dist.ipfs.tech, which stopped answering.)*
 
 ### 2. Create the node's cluster identity
 

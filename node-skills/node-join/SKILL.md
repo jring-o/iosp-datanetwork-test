@@ -61,7 +61,8 @@ everyone else) and roughly how long you'll be working while they wait.
 ## Steps (you, over SSH)
 
 1. **Install the cluster software.** `ipfs-cluster-service` and `ipfs-cluster-ctl` from
-   dist.ipfs.tech, arm64, current stable (v1.1.6 at time of writing; check for newer, and
+   `https://github.com/ipfs-cluster/ipfs-cluster/releases/download/v1.1.6/`, arm64 (v1.1.6
+   at time of writing; dist.ipfs.tech stopped answering on 2026-10-06; check for newer, and
    don't try to match other members' versions; mixed versions are normal and fine).
 2. **`ipfs-cluster-service init --consensus crdt`.** Expect `service.json`, `identity.json`
    and an empty `peerstore` under `~/.ipfs-cluster/`.

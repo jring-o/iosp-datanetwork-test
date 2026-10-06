@@ -195,10 +195,10 @@ they pick: the key lands on it.
 
 ## Phase E — Kubo (you, runbook 20 exactly)
 
-14. Latest stable: `curl -s https://dist.ipfs.tech/kubo/versions | grep -v "\-rc" | tail -1`.
-    **Take the newest, even if it differs from other nodes.** Members build months apart;
-    mixed versions are the cluster's normal state, not a problem to reconcile.
-15. Download `kubo_<version>_linux-arm64.tar.gz` from dist.ipfs.tech, extract,
+14. Use Kubo `v0.42.0`, which runbook 20 was performed with. Mixed versions across members
+    are normal, but a newer Kubo has not been tried with this kit. dist.ipfs.tech stopped
+    answering on 2026-10-06; the same files are on GitHub.
+15. Download `https://github.com/ipfs/kubo/releases/download/v0.42.0/kubo_v0.42.0_linux-arm64.tar.gz`, extract,
     `sudo bash kubo/install.sh`, confirm `ipfs --version`.
 16. `ipfs init` → **record the peer identity** (`12D3KooW…`, the node's permanent public
     name; safe to share, never changes) in `MY-NODE.md`. Then set the archive budget:
@@ -246,8 +246,8 @@ days.
       | ssh <username>@<address> 'bash ~/ops/set_secret.sh'`.
     Both print `Secret set (64 characters). Cluster name is: iosp-nodes` on success. Set the
     cluster name in the editor first, or the confirmation line will show the wrong name.
-23. Install `ipfs-cluster-service` + `ipfs-cluster-ctl` (v1.1.6 at time of writing; check
-    dist.ipfs.tech for newer), then `ipfs-cluster-service init --consensus crdt`.
+23. Install `ipfs-cluster-service` + `ipfs-cluster-ctl` v1.1.6 from
+    `https://github.com/ipfs-cluster/ipfs-cluster/releases/download/v1.1.6/` (runbook 30 step 1), then `ipfs-cluster-service init --consensus crdt`.
 24. **A fresh init is already almost right**: `peername` defaults to the hostname,
     `trusted_peers` to `["*"]`, `enable_relay_hop` to `true` (leave it on; harmless behind
     NAT, useful if they ever become an anchor). **Only two values need changing:**

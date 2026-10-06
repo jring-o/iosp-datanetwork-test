@@ -34,8 +34,10 @@ interaction contract in `../README.md`: one action per message, then what they s
 
 ## Phase B — install (agent)
 
-From https://dist.ipfs.tech, download for your OS/architecture (Windows: `windows-amd64`
-zips) into a self-contained folder, `%USERPROFILE%\iosp-laptop-node\bin\`:
+From the projects' GitHub release pages, `https://github.com/ipfs/kubo/releases/download/v0.42.0/`
+and `https://github.com/ipfs-cluster/ipfs-cluster/releases/download/v1.1.6/`, download for your
+OS/architecture (Windows: `windows-amd64` zips; dist.ipfs.tech stopped answering on
+2026-10-06) into a self-contained folder, `%USERPROFILE%\iosp-laptop-node\bin\`:
 
 - **kubo** v0.42.0
 - **ipfs-cluster-service** and **ipfs-cluster-ctl** v1.1.6
