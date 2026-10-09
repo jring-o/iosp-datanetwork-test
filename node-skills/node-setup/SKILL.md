@@ -283,8 +283,10 @@ days.
     private cluster of one. Re-check both; don't guess which. At a workshop, also check that
     the room line went in before the cluster started; if not, restart the cluster.
     **Then check the name is theirs alone.** If another member in `peers ls` already uses
-    the same name, ask them for another and rename per runbook 30 step 7. Names are only
-    labels (membership goes by peer ID), so a rename after joining is harmless.
+    the same name, ask them for another, telling them in that message that it appears on the
+    network's public status page, so it should not identify them, and that it uses letters,
+    digits and dashes, starting with a letter. Then rename per runbook 30 step 7. Names are
+    only labels (membership goes by peer ID), so a rename after joining is harmless.
 27. Gate 4: `ipfs-cluster-ctl status` shows their rows turning `PINNED` as the archive
     arrives. **Expect noise and do not act on it.** A freshly started peer reports `UNPINNED`
     or missing rows for a minute; separately, a single dataset can sit at

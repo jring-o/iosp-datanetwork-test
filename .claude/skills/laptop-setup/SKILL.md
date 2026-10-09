@@ -144,9 +144,11 @@ Verify all three: `ipfs.exe --version`, `ipfs-cluster-service.exe --version`,
    name is wrong; the two failures look identical, so re-check both. At a workshop, also
    check that the room line went in before the cluster peer started; if not, restart it.
 3. **Check the name is theirs alone.** If another member in `peers ls` already uses the same
-   name, ask the human for another, set it as in Phase D step 2, and restart the cluster
-   peer. Names are only labels (membership goes by peer ID), so a rename after joining is
-   harmless.
+   name, ask the human for another, telling them in that message that it appears on the
+   network's public status page, so it should not identify them, and that it uses letters,
+   digits and dashes, starting with a letter. Then set it as in Phase D step 2 and restart
+   the cluster peer. Names are only labels (membership goes by peer ID), so a rename after
+   joining is harmless.
 4. **Expect a false alarm**: for the first minute, `ipfs-cluster-ctl.exe status` may show
    `UNPINNED` for everything, on every peer. That is the fresh membership still syncing,
    not data loss — wait a minute, re-run, watch it turn `PINNED`. *(Observed on the first

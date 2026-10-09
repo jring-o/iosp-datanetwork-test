@@ -256,9 +256,10 @@ also check that the room line went in before the cluster started; if it went in 
 restart the cluster.
 
 **Check that your name is yours alone.** If another line shows the same name as yours, choose
-another and rename. Names are only labels, since membership goes by peer ID, so this is
-harmless. *(Written 2026-10-05, ahead of its first performance.)* With your new name in place
-of `<new-name>`:
+another and rename. The new name appears on the network's public status page, so pick one
+that doesn't identify you. Use letters, digits and dashes, starting with a letter. Names are
+only labels, since membership goes by peer ID, so this is harmless. *(Written 2026-10-05,
+ahead of its first performance.)* With your new name in place of `<new-name>`:
 
 ```
 sudo raspi-config nonint do_hostname <new-name>
