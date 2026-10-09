@@ -81,6 +81,11 @@ something to dial. It is optional, and it is the one role with a public footprin
 [`runbook/35-meeting-point.md`](runbook/35-meeting-point.md) explains exactly what it commits
 you to before you decide.
 
+Some anchors, and other members who agree to, also run the consortium's **indexer**, which
+describes each dataset and packages it with that description as an RO-Crate. Each of them
+pins an index of what it described into its networks, so any member can search the archive
+from their own node with the `archive-search` skill, no website needed.
+
 ## Your node after setup
 
 It needs nothing from you. It pulls down new material as the group rescues it, offers its
@@ -89,8 +94,9 @@ connection when your Wi-Fi misbehaves. You do not need to leave anything running
 computer.
 
 When you do want it: `node-health` for a checkup, `node-doctor` if something seems wrong,
-`node-add-data` when you have something to rescue, and `node-reconnect` when the node moves
-house, changes Wi-Fi, or arrives from someone else.
+`node-add-data` when you have something to rescue, `archive-search` to find something in the
+archive, and `node-reconnect` when the node moves house, changes Wi-Fi, or arrives from
+someone else.
 
 ## Found something wrong?
 

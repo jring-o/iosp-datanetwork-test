@@ -45,10 +45,33 @@ Run `%USERPROFILE%\iosp-laptop-node\check-node.bat`, or the same by hand:
 | Network | `ipfs.exe swarm peers` (count lines) | dozens to hundreds |
 | Membership | `ipfs-cluster-ctl.exe peers ls` | own peername + others, "Sees N other peers" |
 | Pins | `ipfs-cluster-ctl.exe status` | rows say `PINNED` |
+| Datasets | the count below | the number of datasets in the archive, the X in the verdict |
+
+Count datasets in PowerShell. This form names the program by its full path, so it works
+whether or not the node's `bin` folder is on PATH:
+
+```powershell
+(& "$env:USERPROFILE\iosp-laptop-node\bin\ipfs-cluster-ctl.exe" pin ls | Select-String -NotMatch '^\S+ \| _iosp-').Count
+```
+
+Pins whose names start `_iosp-` are the archive's index files (`_iosp-index-<name>`, named
+after the node of the member that runs the indexer) and the indexer's recipe
+(`_iosp-recipe-v<N>`). They belong on the list and should read `PINNED` like everything
+else, but they are never datasets, so the count leaves them out.
+
+Datasets show up as RO-Crates. Usually within an hour of being added, the consortium's
+indexer wraps each dataset in an RO-Crate (a folder holding the original data, its
+description and a readable page) and lists it under the same name with a new CID; its pin
+carries the metadata `iosp-kind=crate` (`ipfs-cluster-ctl.exe --enc=json pin ls <cid>`). The
+recipe can name datasets that are never wrapped. While a swap completes, a dataset and its
+crate can both appear under one name, so the count can briefly run high. It settles by
+itself once every member that is online and holds the dataset also holds the crate.
+*(Written 2026-10-08, ahead of its first performance.)*
 
 Verdicts, in plain words:
 
-- **HEALTHY** — all three in range: "Node's up, N connections, holding all X datasets."
+- **HEALTHY** — all four in range: "Node's up, N connections, holding all X datasets." X is
+  the dataset count, never the number of status rows.
 - **RECOVERING** — just started: peers still climbing, or `status` shows `UNPINNED` /
   missing rows for this node. **Normal for the first minute after every start** — the
   membership view rebuilds before it reports truthfully. Wait a minute, re-check.

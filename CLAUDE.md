@@ -13,6 +13,7 @@ not summaries of the runbook; they carry things the runbook cannot.
 | Check whether their node is okay | `node-skills/node-health/SKILL.md` |
 | Fix a node that seems broken or is not holding data | `node-skills/node-doctor/SKILL.md` |
 | Add a dataset to the shared archive | `node-skills/node-add-data/SKILL.md` |
+| Search the archive | `node-skills/archive-search/SKILL.md` |
 | Shut the node down safely, or move it | `node-skills/node-off/SKILL.md` |
 | Get a node back online after it moved, the Wi-Fi changed, it arrived from someone else, or they are on a new computer | `node-skills/node-reconnect/SKILL.md` |
 | Volunteer as an anchor by opening a router port | `node-skills/node-meeting-point/SKILL.md` |

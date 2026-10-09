@@ -121,9 +121,10 @@ a house move. The skills cover that whole life:
 |---|---|---|
 | `node-setup` | sealed box → node **joined and holding the archive** (runbook 00–40 assisted) | ready |
 | `node-join` | join an existing node to the cluster (runbook 30) — for nodes built before joining, or retries | ready |
-| `node-health` | read-only "is my node okay?" checkup + plain verdict | ready |
+| `node-health` | read-only "is my node okay?" checkup + plain verdict | ready; dataset count written 2026-10-08 ahead of its first performance |
 | `node-doctor` | diagnose and repair a node that stopped connecting, reporting, or pinning | ready |
-| `node-add-data` | add a rescued dataset to the shared pin list from your own node | ready |
+| `node-add-data` | add a rescued dataset to the shared pin list from your own node | ready; source and license questions written 2026-10-08 ahead of their first performance |
+| `archive-search` | search the archive's index from your own node (Pi or laptop), without the website, and fetch a crate | written ahead of its first performance; report every mismatch |
 | `node-off` | safe shutdown/restart before unplugging or moving | ready |
 | `node-meeting-point` | anchor volunteer flow: ISP discovery, port forwards, external verify (runbook 35) | ready |
 | `node-reconnect` | node moved house, new Wi-Fi, new owner, or a new computer that has never reached it (runbook 50) | written ahead of its first performance; report every mismatch |

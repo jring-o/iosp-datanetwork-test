@@ -3,9 +3,16 @@
 Numbered chapters, in execution order, from a sealed box to a node holding the archive.
 Read them in order the first time; after that they are reference.
 
-Every step here has been performed on real hardware before it was written down, with one
-exception: chapter 50 was written ahead of its first performance and says so at the top. The
-timings are measured from real builds.
+Every step here has been performed on real hardware before it was written down, except the
+passages below, which were written ahead of their first performance and say so where they
+stand. The timings are measured from real builds.
+
+- Chapter 50, all of it.
+- Chapter 30, the workshop room line in step 5 (2026-10-06), the name check in step 7
+  (2026-10-05), and the note on `_iosp-` rows in step 8 (2026-10-08).
+- Chapter 40, the source and license in step 2 of "Before you add", the quoting and the
+  metadata check in "Add it", and the section "Your dataset becomes an RO-Crate" (all
+  2026-10-08); and the last section, "Find a dataset in the archive" (2026-10-09).
 
 | Chapter | What it covers | Who needs it |
 |---|---|---|

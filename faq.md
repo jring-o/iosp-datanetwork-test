@@ -33,6 +33,38 @@ starting rule is that we trust each other's judgment. Whether the consortium wan
 process later is a *governance* question the members decide, and changing it never requires
 touching the technology.
 
+**Why did my dataset's address change?**
+Because it became an *RO-Crate*. Usually within an hour of a dataset being added, the
+consortium's *indexer* describes it and wraps it, unchanged, in a crate, a folder that holds
+your data beside a metadata file and a page any browser can show. The crate takes the
+dataset's place on the *shared pin list* under the same name, and a folder's address is
+computed from everything inside it, so the crate's address is new. Your original address
+still works on every node, because the crate contains the same blocks, and nothing you
+added was removed.
+
+**Does the indexer send our data to an AI company?**
+Yes. To describe a dataset, the indexer sends parts of it to a hosted AI model, the one the
+*recipe* names (today Google's Gemini). It sends the dataset's name and file listing, excerpts
+of its files with facts computed from them, a few of its PDFs and images, and the source and
+license given when it was added. Nothing on this network is private to begin with. Anyone who
+has a dataset's address can fetch it from any node, so never add data that must stay
+private, whether or not the indexer reads it.
+
+**Who decides which model describes the data?**
+The *recipe*, which is a consortium decision. It names the model and what the model is told,
+and wherever the indexer runs, it follows the newest version pinned in the network, so
+crates made on different members' nodes agree. It can also name datasets that are never
+wrapped. Recipe version 1 uses Gemini 3.8 Flash and leaves plain the datasets that the IOSP
+Modular Workshop's tools find by their names. When the consortium adopts a new version,
+the indexer remakes every crate under it. Who publishes later versions, and how members
+agree on them, is a *governance* question the members have not settled yet.
+
+**Can I search the archive without the website?**
+Yes. Every member that runs the indexer pins its *index file* into each network it belongs
+to, so your node already holds the index files pinned in its own network. The `archive-search`
+skill searches them with the commands your node already has and shows each match's title,
+research field and address. The website's search reads the same entries.
+
 **What happens when my home IP address changes, or I move house?**
 Nothing. Your node only ever dials *out*, like a phone that only makes calls: it doesn't
 care what its own number is. It redials the *anchors* and it's back. You do nothing
@@ -152,7 +184,8 @@ willingness to be one of ~5 such volunteers per network. Your node's permanent I
 enter the public anchor registry; runbook chapter 35 spells out exactly what that makes
 visible, before you decide. Your node also runs the network's automatic *spot-checks*; that
 is software doing its rounds, and you never lift a finger. No cost, no maintenance, and the
-role can rotate to someone else with one setting.
+role can rotate to someone else with one setting. Running the *indexer* is a separate
+agreement; ask through the contact route in the README.
 
 **What if I forget my node's password?**
 Your everyday computer's *SSH key* is the everyday door: no password typed, ever. The

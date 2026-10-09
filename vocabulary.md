@@ -56,6 +56,24 @@ where it differs.
   ceremony), a habit afterward.
 - **Sharding** — the future mode where big collections are spread across some nodes rather
   than all — same machinery, different replication number.
+- **RO-Crate (crate)** — a dataset packaged with its description, as a folder holding the
+  original data, a standard metadata file (`ro-crate-metadata.json`) and a page any browser
+  can show (`ro-crate-preview.html`). RO-Crate is an open standard from the research
+  community. The indexer turns every dataset the recipe does not exclude into one, under
+  the dataset's own name; the crate has a new address, and the original address keeps
+  working because the crate contains the same data.
+- **Indexer** — a program that runs on some anchors, and on other members' nodes whose owners
+  agree to it. It reads the datasets on the shared pin list, has the recipe's AI model
+  describe each one, wraps it as an RO-Crate, and lists the crate in an index file.
+- **Recipe** — the consortium's one set of instructions for the indexer, wherever it runs. It
+  names the AI model that describes the data and what the model is told, and the datasets
+  that are never wrapped. It is pinned into the network as `_iosp-recipe-v<N>`. A new version
+  is a consortium decision, and when one appears the indexer remakes every crate under it.
+- **Index file** — the list of crates the indexer made on one member's node, with each
+  crate's title, keywords, research field and address, pinned into each of that member's
+  networks as `_iosp-index-<name>`, named after that member's node. Every member holds the
+  index files pinned in its own network, so it can search them without the website. Pins
+  whose names start `_iosp-` are index files and recipes, never datasets.
 
 ## The network
 

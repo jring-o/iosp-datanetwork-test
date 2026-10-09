@@ -276,7 +276,9 @@ expect your new name. Update `MY-NODE.md`.
 ipfs-cluster-ctl status
 ```
 
-You will see every dataset the consortium holds, with a line per member.
+You will see every dataset the consortium holds, with a line per member. Rows whose names
+start `_iosp-` are the archive's index files and the indexer's recipe, not datasets; they
+arrive the same way. *(Written 2026-10-08, ahead of its first performance.)*
 
 **Expect a mess for the first minute or two, and do not act on it.** A peer that has just
 started reports `UNPINNED`, or omits rows, or shows `UNEXPECTEDLY_UNPINNED`, for pins that are

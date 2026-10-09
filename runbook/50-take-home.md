@@ -8,9 +8,10 @@ password, and back in the consortium's cluster, catching up on whatever it misse
 **Time:** under half an hour when the Wi-Fi cooperates, most of it waiting.
 
 *This chapter was written before it was first performed. Every other chapter was written from
-a real build; this one is those same steps in a new order, and its first real performance
-will correct it. If something here differs from what you see, that is the chapter's fault,
-and reporting it is the most useful thing you can do.*
+a real build, apart from the passages [the runbook's README](README.md) lists; this one is
+those same steps in a new order, and its first real performance will correct it. If
+something here differs from what you see, that is the chapter's fault, and reporting it is
+the most useful thing you can do.*
 
 There is nothing to configure about the new house. The node finds the consortium by itself:
 at every boot it asks the public IPFS network where the anchors currently are and dials them.
